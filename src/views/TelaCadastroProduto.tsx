@@ -42,11 +42,16 @@ const TelaCadastroProduto: React.FC = () => {
       <Text style={styles.labels}>Nome do Produto:</Text>
       <Controller
         control={control}
-      name="nome"
-      rules={{ required: "Nome deve ser obrigatório" }}
-      render={({ field: { onChange, value } }) => {
-
-      }}
+        name="nome"
+        rules={{ required: "Nome deve ser obrigatório" }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome do produto"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
       />
       <TextInput
         style={styles.input}
@@ -54,15 +59,33 @@ const TelaCadastroProduto: React.FC = () => {
       />
 
       <Text style={styles.labels}>Descrição do Produto:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a descrição do produto"
+      <Controller
+        control={control}
+        name="descricao"
+        rules={{ required: "Nome deve ser obrigatório" }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome do produto"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
       />
+      
       <Text style={styles.labels}>Valor do Produto (Unitário):</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o valor do produto"
-        keyboardType="numeric"
+      <Controller
+        control={control}
+        name="valor"
+        rules={{ required: "Valor unitário deve ser obrigatório" }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome do produto"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
       />
     </View>
 
