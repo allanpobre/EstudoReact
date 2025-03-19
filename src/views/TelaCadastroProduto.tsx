@@ -12,13 +12,14 @@ interface Produto {
 const TelaCadastroProduto: React.FC = () => {
   const {
     control,
-    handlerSubmit,
+    handleSubmit,
     formState: { errors },
     reset
   } = useForm<Produto>()
 
-  try {
-    const enviar = async (dados: Produto) => {
+
+  const enviar = async (dados: Produto) => {
+    try {
       const produtoExiste = await AsyncStorage.getItem("produtos");
       let produtos = produtoExiste ? JSON.parse(produtoExiste) : [];
       if (produtoExiste) {
@@ -31,11 +32,11 @@ const TelaCadastroProduto: React.FC = () => {
       await AsyncStorage.setItem("produtos", JSON.stringify(produtos));
       console.log("Dados salvos com sucesso!")
       reset()
+    } catch (error) {
+      console.log("Erro ao salvar: " + error)
     }
   }
-  catch (error) {
-    console.log("Erro ao salvar: " + error)
-  }
+
 
   return (
     <View style={styles.container}>
@@ -53,10 +54,6 @@ const TelaCadastroProduto: React.FC = () => {
           />
         )}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o nome do produto"
-      />
 
       <Text style={styles.labels}>Descrição do Produto:</Text>
       <Controller
@@ -66,13 +63,13 @@ const TelaCadastroProduto: React.FC = () => {
         render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
-            placeholder="Digite o nome do produto"
+            placeholder="Digite a descrição do produto"
             onChangeText={onChange}
             value={value}
           />
         )}
       />
-      
+
       <Text style={styles.labels}>Valor do Produto (Unitário):</Text>
       <Controller
         control={control}
@@ -81,12 +78,13 @@ const TelaCadastroProduto: React.FC = () => {
         render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
-            placeholder="Digite o nome do produto"
+            placeholder="Digite o valor unitário do produto"
             onChangeText={onChange}
             value={value}
           />
         )}
       />
+      <Button title="Salvar" onPress={handleSubmit(enviar)} />
     </View>
 
   );
